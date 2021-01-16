@@ -3,6 +3,7 @@ import React from 'react';
 // custom
 import {Container, Wrapper, Sidebar, Content} from 'app.styled';
 import {Header} from 'components/Header';
+import {RegisterCard} from 'components/RegisterCard';
 
 export const App: React.FC = () => {
   return (
@@ -10,7 +11,9 @@ export const App: React.FC = () => {
       <Header />
 
       <Wrapper>
-        <Sidebar>CONTENT LEFT</Sidebar>
+        <Sidebar>
+          <RegisterCard />
+        </Sidebar>
 
         <Content>CONTENT RIGHT</Content>
       </Wrapper>

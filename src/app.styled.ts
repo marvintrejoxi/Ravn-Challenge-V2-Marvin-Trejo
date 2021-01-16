@@ -17,6 +17,7 @@ export const Sidebar = styled.aside`
   width: 350px;
   overflow-y: auto;
   box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.15);
+  padding-left: 8px;
 `;
 
 export const Content = styled.section`
