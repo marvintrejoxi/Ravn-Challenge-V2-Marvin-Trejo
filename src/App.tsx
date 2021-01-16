@@ -23,27 +23,32 @@ export const App: React.FC = () => {
     PeopleList,
     PeopleVariables
   >(GET_PEOPLE_QUERY, {
-    variables: {first: 14, after: null},
+    variables: {first: 14, after: ''},
     fetchPolicy: 'cache-and-network',
   });
 
   useEffect(() => {
     if (allPeople?.people.length) {
+      if (!allPeople.pageInfo.hasNextPage) {
+        setShouldFetchMoreData(false);
+      }
+
       setPeople(allPeople.people);
     }
-  }, [allPeople?.people]);
+  }, [allPeople?.people, allPeople?.people.length, allPeople?.pageInfo]);
 
   const fetchMorePeople = () => {
     if (allPeople?.people.length)
       fetchMore({
-        variables: {after: allPeople?.pageInfo.endCursor, first: 5},
+        variables: {
+          after: allPeople?.pageInfo.endCursor,
+          first: 5,
+        },
         updateQuery: (previous, {fetchMoreResult}) => {
           if (
-            !fetchMoreResult ||
+            !fetchMoreResult?.allPeople?.people.length ||
             allPeople.people.length === allPeople.totalCount
           ) {
-            setShouldFetchMoreData(false);
-
             return previous;
           }
 
@@ -63,7 +68,7 @@ export const App: React.FC = () => {
 
       <Wrapper>
         <Sidebar
-          dataLength={people.length}
+          dataLength={allPeople?.people.length || 0}
           next={() => fetchMorePeople()}
           hasMore={shouldFetchMoreData}
           loader={<Loader />}

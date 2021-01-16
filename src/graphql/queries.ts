@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client';
 
 export const GET_PEOPLE_QUERY = gql`
-  query GetPeopleQuery($first: Int, $after: String) {
-    allPeople(first: $first, after: $after) {
+  query GetPeopleQuery($first: Int, $after: String, $last: Int) {
+    allPeople(first: $first, after: $after, last: $last) {
       people {
         id
         birthYear
@@ -26,6 +26,7 @@ export const GET_PEOPLE_QUERY = gql`
       }
       pageInfo {
         endCursor
+        hasNextPage
       }
 
       totalCount

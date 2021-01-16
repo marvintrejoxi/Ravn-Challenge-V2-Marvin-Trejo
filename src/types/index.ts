@@ -17,6 +17,7 @@ interface IVehicle {
 
 interface IPageInfo {
   endCursor: string;
+  hasNextPage: boolean;
 }
 
 interface IVehicleConnection {
