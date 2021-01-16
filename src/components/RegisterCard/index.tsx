@@ -1,8 +1,9 @@
 import React from 'react';
-import ArrowRight from 'assets/icons/arrow-right.svg';
+import {Fade} from 'react-awesome-reveal';
 
 // custom
 import {RegisterCardWrapper, InformationContainer} from './styled';
+import ArrowRight from 'assets/icons/arrow-right.svg';
 
 // types
 import {Person, ISpecies, IHomeworld} from 'types';
@@ -29,17 +30,22 @@ const parseSubtitle = (species?: ISpecies, homeworld?: IHomeworld) => {
 
 export const RegisterCard: React.FC<RegisteredCardProps> = ({
   person,
-  person: {id, name, homeworld, species},
+  person: {name, homeworld, species},
   isSelected,
   onClick,
 }) => (
-  <RegisterCardWrapper isSelected={isSelected} onClick={() => onClick(person)}>
-    <InformationContainer>
-      <h1>{name}</h1>
+  <Fade direction="left" triggerOnce>
+    <RegisterCardWrapper
+      isSelected={isSelected}
+      onClick={() => onClick(person)}
+    >
+      <InformationContainer>
+        <h1>{name}</h1>
 
-      <h2>{parseSubtitle(species, homeworld)}</h2>
-    </InformationContainer>
+        <h2>{parseSubtitle(species, homeworld)}</h2>
+      </InformationContainer>
 
-    <img src={ArrowRight} alt="arrow-right" />
-  </RegisterCardWrapper>
+      <img src={ArrowRight} alt="arrow-right" />
+    </RegisterCardWrapper>
+  </Fade>
 );
