@@ -1,4 +1,13 @@
+@import 'fonts';
+
+:root  {
+  --black: #121212;
+  --white: #ffffff;
+  --gray: #f2f2f2;
+}
+
 body {
   margin: 0;
   padding: 0;
+  font-family: 'SF Pro Display', sans-serif;
 }

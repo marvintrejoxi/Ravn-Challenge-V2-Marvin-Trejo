@@ -5,6 +5,6 @@ import {HeaderWrapper, HeaderTitle} from './styled';
 
 export const Header = () => (
   <HeaderWrapper>
-    <HeaderTitle>TITLE</HeaderTitle>
+    <HeaderTitle>Ravn Star Wars Registry</HeaderTitle>
   </HeaderWrapper>
 );
