@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useQuery} from '@apollo/client';
 
 // custom
+import {useIsMobile} from 'hooks/useIsMobile';
 import {Container, Wrapper, Sidebar, Content} from 'app.styled';
 import {Header} from 'components/Header';
 import {Loader} from 'components/Loader';
@@ -16,9 +17,11 @@ import {GET_PEOPLE_QUERY} from 'graphql/queries';
 import {PeopleVariables, PeopleList, Person} from 'types';
 
 export const App: React.FC = () => {
+  const isMobile = useIsMobile();
   const [people, setPeople] = useState<Person[]>([]);
   const [currentPerson, setCurrentPerson] = useState<Person | null>(null);
   const [shouldFetchMoreData, setShouldFetchMoreData] = useState<boolean>(true);
+  const [showMobileContent, setShowMobileContent] = useState<boolean>(false);
   const {data: {allPeople} = {}, error, loading, fetchMore} = useQuery<
     PeopleList,
     PeopleVariables
@@ -36,6 +39,12 @@ export const App: React.FC = () => {
       setPeople(allPeople.people);
     }
   }, [allPeople?.people, allPeople?.people.length, allPeople?.pageInfo]);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setShowMobileContent(false);
+    }
+  }, [isMobile]);
 
   const fetchMorePeople = () => {
     if (allPeople?.people.length)
@@ -62,33 +71,54 @@ export const App: React.FC = () => {
       });
   };
 
+  const onClickPerson = (person: Person) => {
+    if (isMobile) {
+      setShowMobileContent(true);
+    }
+
+    setCurrentPerson(person);
+  };
+
   return (
     <Container>
-      <Header />
+      <Header
+        isMobile={isMobile}
+        isShowingMobileContent={showMobileContent}
+        mobileTitle={!!currentPerson ? currentPerson.name : ''}
+        onMobileBack={() => {
+          setCurrentPerson(null);
+          setShowMobileContent(false);
+        }}
+      />
 
-      <Wrapper>
-        <Sidebar
-          dataLength={allPeople?.people.length || 0}
-          next={() => fetchMorePeople()}
-          hasMore={shouldFetchMoreData}
-          loader={<Loader />}
-          height="100%"
-        >
-          {people.map((person, index) => (
-            <RegisterCard
-              key={index}
-              person={person}
-              isSelected={currentPerson?.id === person.id}
-              onClick={setCurrentPerson}
-            />
-          ))}
+      <Wrapper isMobile={isMobile}>
+        {!showMobileContent && (
+          <Sidebar
+            dataLength={allPeople?.people.length || 0}
+            next={() => fetchMorePeople()}
+            hasMore={shouldFetchMoreData}
+            loader={<Loader />}
+            height="100%"
+            isMobile={isMobile}
+          >
+            {people.map((person, index) => (
+              <RegisterCard
+                key={index}
+                person={person}
+                isSelected={currentPerson?.id === person.id}
+                onClick={onClickPerson}
+              />
+            ))}
 
-          {!loading && !!error && <CustomError />}
-        </Sidebar>
+            {!loading && !!error && <CustomError />}
+          </Sidebar>
+        )}
 
-        <Content>
-          {!!currentPerson && <GeneralInformation person={currentPerson} />}
-        </Content>
+        {(showMobileContent || !isMobile) && (
+          <Content isMobile={isMobile}>
+            {!!currentPerson && <GeneralInformation person={currentPerson} />}
+          </Content>
+        )}
       </Wrapper>
     </Container>
   );

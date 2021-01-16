@@ -1,10 +1,33 @@
 import React from 'react';
+import ArrowLeft from 'assets/icons/arrow-left.svg';
 
 // custom
-import {HeaderWrapper, HeaderTitle} from './styled';
+import {HeaderWrapper, HeaderTitle, BackButton} from './styled';
 
-export const Header = () => (
+type HeaderProps = {
+  isMobile: boolean;
+  isShowingMobileContent: boolean;
+  mobileTitle: string;
+  onMobileBack: () => void;
+};
+
+export const Header: React.FC<HeaderProps> = ({
+  isMobile,
+  isShowingMobileContent,
+  mobileTitle,
+  onMobileBack,
+}) => (
   <HeaderWrapper>
-    <HeaderTitle>Ravn Star Wars Registry</HeaderTitle>
+    {isMobile && isShowingMobileContent && (
+      <BackButton onClick={() => onMobileBack()}>
+        <img src={ArrowLeft} alt="arrow-left" />
+      </BackButton>
+    )}
+
+    <HeaderTitle isShowingMobileContent={isShowingMobileContent}>
+      {isMobile && isShowingMobileContent
+        ? mobileTitle
+        : 'Ravn Star Wars Registry'}
+    </HeaderTitle>
   </HeaderWrapper>
 );

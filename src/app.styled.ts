@@ -7,20 +7,24 @@ export const Container = styled.section`
   overflow: hidden;
 `;
 
-export const Wrapper = styled.main`
+export const Wrapper = styled.main<{isMobile: boolean}>`
   display: flex;
   height: calc(100vh - 52px);
   overflow: hidden;
+
+  .infinite-scroll-component__outerdiv {
+    width: ${({isMobile}) => (isMobile ? '100%' : 'auto')};
+  }
 `;
 
-export const Sidebar = styled(InfiniteScroll)`
-  width: 350px;
+export const Sidebar = styled(InfiniteScroll)<{isMobile: boolean}>`
+  width: ${({isMobile}) => (isMobile ? '100%' : '350px')};
   box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.15);
 `;
 
-export const Content = styled.section`
+export const Content = styled.section<{isMobile: boolean}>`
   height: 100%;
-  width: calc(100% - 350px);
+  width: ${({isMobile}) => (isMobile ? '100%' : 'calc(100% - 350px)')};
   overflow-y: auto;
   padding: 0 100px;
 `;
