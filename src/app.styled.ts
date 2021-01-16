@@ -24,4 +24,5 @@ export const Content = styled.section`
   height: 100%;
   width: calc(100% - 350px);
   overflow-y: auto;
+  padding: 0 100px;
 `;
