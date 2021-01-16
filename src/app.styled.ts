@@ -26,5 +26,5 @@ export const Content = styled.section<{isMobile: boolean}>`
   height: 100%;
   width: ${({isMobile}) => (isMobile ? '100%' : 'calc(100% - 350px)')};
   overflow-y: auto;
-  padding: 0 100px;
+  padding: ${({isMobile}) => (isMobile ? '0 50px' : '0 100px')};
 `;
