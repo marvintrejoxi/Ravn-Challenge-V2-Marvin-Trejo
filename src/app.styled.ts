@@ -16,6 +16,7 @@ export const Sidebar = styled.aside`
   height: 100%;
   width: 350px;
   overflow-y: auto;
+  box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.15);
 `;
 
 export const Content = styled.section`
