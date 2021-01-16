@@ -1,18 +1,21 @@
 import styled from 'styled-components';
 
-export const RegisterCardWrapper = styled.button`
+export const RegisterCardWrapper = styled.button<{isSelected: boolean}>`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: var(--white);
+  background-color: var(
+    --${({isSelected}) => (isSelected ? 'light' : 'white')}
+  );
   margin: 0;
   padding: 0 30px 0 0;
   cursor: pointer;
   outline: none;
   min-height: 69px;
+  padding-left: 8px;
 `;
 
 export const InformationContainer = styled.div`

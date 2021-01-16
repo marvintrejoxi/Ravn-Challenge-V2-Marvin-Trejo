@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export const Container = styled.section`
   min-height: 100vh;
@@ -12,12 +13,9 @@ export const Wrapper = styled.main`
   overflow: hidden;
 `;
 
-export const Sidebar = styled.aside`
-  height: 100%;
+export const Sidebar = styled(InfiniteScroll)`
   width: 350px;
-  overflow-y: auto;
   box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.15);
-  padding-left: 8px;
 `;
 
 export const Content = styled.section`
