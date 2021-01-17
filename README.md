@@ -26,6 +26,16 @@
 - Node
 - Nvm
 
+## Functionality
+
+### Desktop
+
+![Ravn Challenge Demo - Desktop](https://media.giphy.com/media/UgiieJHA6Q5vwaSq97/giphy.gif)
+
+### Mobile
+
+![Ravn Challenge Demo - Desktop](https://media.giphy.com/media/Src7Lx7pIWmNhHRqA2/giphy.gif)
+
 ## Authors
 
 - [**Marvin Trejo**](https://github.com/marvintrejoxi) - Fullstack Developer
